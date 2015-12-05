@@ -14,7 +14,7 @@ var Button = require('../common/button');
 module.exports = React.createClass({
     getInitialState: function() {
         return {
-            username: '',
+            username: 'fakename',
             password: ''
         };
     },
