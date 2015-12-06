@@ -15,7 +15,8 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: '',
         };
     },
 
@@ -38,14 +39,20 @@ module.exports = React.createClass({
                     value={this.state.password}
                     onChangeText={(text) => this.setState({password: text})}
                 />
-
+                <Text style={styles.label}>{this.state.errorMessage}</Text>
                 <Button text={'Sign In'} onPress={this.onPress} />
+                <Button text={'I need a new account'} onPress={this.onSignUpPress} />
             </View>
             );
     },
-
+    onSignUpPress: function() {
+      this.props.navigator.push({name: 'signup'})
+    },
     onPress: function() {
-        Parse.User.logIn(this.state.username, this.state.password)
+        Parse.User.logIn(this.state.username, this.state.password, {
+          success: (user) => { console.log(user); },
+          error: (data, error) => { this.setState({errorMessage: error.message});}
+        });
     },
 
 });

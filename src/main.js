@@ -4,28 +4,44 @@ var React = require('react-native');
 var {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    Navigator,
 } = React;
 
 var Parse = require('parse/react-native');
 var Signin = require('./components/authentication/signin');
+var Signup = require('./components/authentication/signup');
+
+var ROUTES = {
+    signin: Signin,
+    signup: Signup
+};
 
 module.exports = React.createClass({
+
     componentWillMount: function() {
-        Parse.initialize("7yPvgmfKKrBRzpj8dosoZyVKEiCtEXG7psvVLLgI","4PhXHkBliE5yYVXruS7mqUhd0gpS3taiSQEF9krB")
+        Parse.initialize("YPVXCURrSNm4ZjOxGexJF9KKxpRUQ4zxMYo5DRYh","7yPvgmfKKrBRzpj8dosoZyVKEiCtEXG7psvVLLgI")
+    },
+
+    renderScene: function(route, navigator) {
+        var Component = ROUTES[route.name];
+        return <Component route={route} navigator={navigator}/>;
     },
 
     render: function() {
-        return <View style={styles.container}>
-            <Signin />
-        </View>
+      return (
+        <Navigator
+          style={styles.container}
+          initialRoute={{name: 'signin'}}
+          renderScene={this.renderScene}
+          configueScene={() => {return Navigator.SceneConfigs.FloatFromRight;}}
+          />
+      )
     }
 });
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     }
 });
