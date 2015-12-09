@@ -11,7 +11,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text>Welcome back!</Text>
+        <Text style={styles.label}>Welcome back! Look at this list of tweets</Text>
       </View>
     );
   },
@@ -22,5 +22,10 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  label: {
+    fontSize: 24,
+    alignSelf: 'center',
+    textAlign: 'center'
   }
 });
